@@ -95,6 +95,7 @@ class OAuthController extends Controller
 
         try {
             $providerAccount = Socialite::driver($provider)->user();
+            $providerAccount->email = $providerAccount->email ?? $providerAccount->name . $providerAccount->id . '@' . config('app.domain');
         } catch (InvalidStateException $e) {
             $this->invalidStateHandler->handle($e);
         }
